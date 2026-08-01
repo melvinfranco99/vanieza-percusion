@@ -60,31 +60,31 @@
     display:flex;
     flex-direction:column;
     min-height:100vh;
-    gap:16px;
-    padding:20px clamp(14px,3vw,32px) 32px;
+    gap:14px;
+    padding:16px clamp(10px,3vw,28px) 24px;
   }
 
   .titleblock{
     display:flex;
     align-items:flex-end;
     justify-content:space-between;
-    gap:20px;
+    gap:16px;
     flex-wrap:wrap;
     border-bottom:2px solid var(--border);
-    padding-bottom:14px;
+    padding-bottom:12px;
   }
   .titleblock h1{
     margin:0;
-    font-size:clamp(20px,2.6vw,28px);
+    font-size:clamp(17px,2.4vw,25px);
     font-weight:700;
-    letter-spacing:.06em;
+    letter-spacing:.05em;
     text-transform:uppercase;
     text-wrap:balance;
   }
   .titleblock .sub{
     margin:4px 0 0;
     color:var(--ink-dim);
-    font-size:13.5px;
+    font-size:12.5px;
     max-width:62ch;
     line-height:1.5;
   }
@@ -100,10 +100,10 @@
     color:var(--ink);
     font:inherit;
     font-weight:600;
-    font-size:12.5px;
+    font-size:12px;
     letter-spacing:.05em;
     text-transform:uppercase;
-    padding:9px 14px;
+    padding:8px 13px;
     border-radius:5px;
     cursor:pointer;
   }
@@ -112,17 +112,17 @@
 
   .legend{
     display:flex;
-    gap:22px;
+    gap:18px;
     flex-wrap:wrap;
-    font-size:12px;
+    font-size:11.5px;
     color:var(--ink-dim);
     align-items:center;
   }
   .legend .swatch{
-    display:inline-flex;align-items:center;gap:7px;
+    display:inline-flex;align-items:center;gap:6px;
   }
   .legend .box-sample{
-    width:20px;height:14px;border-radius:3px;
+    width:18px;height:13px;border-radius:3px;
     background:var(--box-fill);border:1.5px solid var(--border);
   }
   .legend .box-sample.tray{
@@ -131,7 +131,8 @@
 
   .stage-wrap{
     flex:1;
-    overflow:auto;
+    overflow-y:auto;
+    overflow-x:hidden;
     border-radius:10px;
     border:1px solid var(--grid-line-major);
     background:var(--bg-stage);
@@ -139,14 +140,13 @@
 
   .stage{
     position:relative;
-    width:2200px;
-    height:600px;
+    width:100%;
     background-image:
       linear-gradient(var(--grid-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
       linear-gradient(var(--grid-line-major) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid-line-major) 1px, transparent 1px);
-    background-size:20px 20px,20px 20px,100px 100px,100px 100px;
+    background-size:16px 16px,16px 16px,80px 80px,80px 80px;
     background-position:-1px -1px;
   }
 
@@ -154,23 +154,23 @@
     position:absolute;
     left:0;right:0;
     text-align:center;
-    font-size:11.5px;
+    font-size:10.5px;
     font-weight:700;
-    letter-spacing:.22em;
+    letter-spacing:.2em;
     text-transform:uppercase;
     color:var(--ink-dim);
     pointer-events:none;
   }
-  .edge-label.top{top:14px;}
-  .edge-label.bottom{
-    bottom:14px;
+  .edge-label.audience{
+    top:12px;
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:8px;
+    gap:7px;
     color:var(--accent-ink);
   }
-  .edge-label.bottom svg{display:block;}
+  .edge-label.backstage{bottom:12px;}
+  .edge-label svg{display:block;}
 
   .item{
     position:absolute;
@@ -178,9 +178,9 @@
     flex-direction:column;
     align-items:center;
     justify-content:flex-start;
-    gap:4px;
-    padding:8px 6px 7px;
-    border-radius:7px;
+    gap:3px;
+    padding:6px 5px 6px;
+    border-radius:6px;
     background:var(--box-fill);
     border:1.5px solid var(--border);
     box-shadow:var(--shadow);
@@ -204,48 +204,56 @@
   }
 
   .item .icon{
-    width:38px;height:34px;
+    width:26px;height:23px;
     stroke:var(--ink);
     fill:none;
     stroke-width:1.6;
     flex:none;
   }
-  .item.tray .icon{stroke:var(--accent-ink);}
+  .item.tray > .label{
+    color:var(--accent-ink);
+  }
 
   .item .label{
-    font-size:11.5px;
+    font-size:9.5px;
     font-weight:700;
-    letter-spacing:.03em;
+    letter-spacing:.02em;
     text-transform:uppercase;
-    line-height:1.2;
-  }
-  .item .tray-tag{
-    font-size:8.5px;
-    font-weight:700;
-    letter-spacing:.14em;
-    color:var(--accent-ink);
-    text-transform:uppercase;
+    line-height:1.15;
   }
   .item .sub-list{
     display:flex;
-    flex-direction:column;
-    gap:2px;
+    flex-direction:row;
+    gap:5px;
     margin-top:1px;
   }
-  .item .sub-list span{
-    font-size:10px;
+  .item .sub-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:1px;
+    width:44px;
+  }
+  .item .sub-item .icon{
+    width:17px;height:15px;
+    stroke:var(--accent-ink);
+    stroke-width:1.5;
+  }
+  .item .sub-item span{
+    font-size:7.5px;
     color:var(--ink-dim);
     font-weight:600;
+    line-height:1.1;
   }
   .item .sizes{
     display:flex;
-    gap:6px;
+    gap:5px;
     margin-top:1px;
     font-family:ui-monospace,'Cascadia Mono','SF Mono',Consolas,monospace;
     font-variant-numeric:tabular-nums;
   }
   .item .sizes span{
-    font-size:10.5px;
+    font-size:9px;
     color:var(--ink-dim);
     font-weight:600;
   }
@@ -269,25 +277,27 @@
   <div class="legend">
     <span class="swatch"><span class="box-sample"></span>Instrumento individual</span>
     <span class="swatch"><span class="box-sample tray"></span>Bandeja compartida (varios instrumentos, un percusionista)</span>
-    <span class="swatch">Casillas: arrastra con el ratón · con el elemento enfocado, usa las flechas para ajustar (Mayús = paso grande)</span>
+    <span class="swatch">Arrastra con el ratón/dedo · con el elemento enfocado, usa las flechas del teclado (Mayús = paso grande)</span>
   </div>
 
   <div class="stage-wrap">
     <div class="stage" id="stage">
-      <div class="edge-label top">Fondo de escenario</div>
-      <div class="edge-label bottom">
-        <svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1 L7 11 M2.5 7 L7 12 L11.5 7" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="edge-label audience">
+        <svg width="13" height="13" viewBox="0 0 14 14"><path d="M7 13 L7 3 M2.5 7 L7 2 L11.5 7" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Público
       </div>
+      <div class="edge-label backstage">Fondo de escenario</div>
     </div>
   </div>
 </div>
 
 <script>
 (function(){
-  var GAP = 24;
-  var ROW_Y_SINGLE = 235;
-  var ROW_Y_TALL = 210;
+  var MARGIN_X = 18;
+  var MARGIN_TOP = 40;
+  var MARGIN_BOTTOM = 34;
+  var H_GAP = 12;
+  var V_GAP = 14;
 
   function icon(paths, viewBox){
     return '<svg class="icon" viewBox="' + (viewBox||'0 0 40 36') + '">' + paths + '</svg>';
@@ -310,45 +320,44 @@
   };
 
   var items = [
-    {id:'bombo', label:'Bombo', icon:ICONS.bombo, w:120, h:110},
-    {id:'plato1', label:'Plato suspendido', icon:ICONS.plato, w:120, h:110},
-    {id:'tray1', label:'Bandeja', tray:true, w:190, h:140,
+    {id:'bombo', label:'Bombo', icon:ICONS.bombo, w:96, h:84},
+    {id:'plato1', label:'Plato suspendido', icon:ICONS.plato, w:96, h:84},
+    {id:'tray1', label:'Primera bandeja', tray:true, w:158, h:104,
       sub:[{icon:ICONS.palo_lluvia, text:'Palo de lluvia'},
            {icon:ICONS.sonaja, text:'Sonaja'},
            {icon:ICONS.pajaro, text:'Pájaro'}]},
-    {id:'cortinas', label:'Cortinas', icon:ICONS.cortinas, w:120, h:110},
-    {id:'caja', label:'Caja', icon:ICONS.caja, w:120, h:110},
-    {id:'gong', label:'Gong', icon:ICONS.gong, w:130, h:110},
-    {id:'plato2', label:'2º plato suspendido', icon:ICONS.plato, w:130, h:110},
-    {id:'tray2', label:'Bandeja', tray:true, w:170, h:140,
+    {id:'cortinas', label:'Cortinas', icon:ICONS.cortinas, w:96, h:84},
+    {id:'caja', label:'Caja', icon:ICONS.caja, w:96, h:84},
+    {id:'gong', label:'Gong', icon:ICONS.gong, w:100, h:84},
+    {id:'plato2', label:'2º plato suspendido', icon:ICONS.plato, w:100, h:84},
+    {id:'tray2', label:'Segunda bandeja', tray:true, w:110, h:104,
       sub:[{icon:ICONS.maracas, text:'Maracas'},
            {icon:ICONS.pandereta, text:'Pandereta'}]},
-    {id:'timbales', label:'4 timbales', icon:ICONS.timbales, w:210, h:140, sizes:['32"','29"','26"','23"']},
-    {id:'vibrafono', label:'Vibráfono', icon:ICONS.barras, w:140, h:110},
-    {id:'xilofono', label:'Xilófono', icon:ICONS.barras, w:140, h:110},
-    {id:'campanas', label:'Campanas tubulares', icon:ICONS.campanas, w:150, h:110}
+    {id:'timbales', label:'4 timbales', icon:ICONS.timbales, w:150, h:104, sizes:['32"','29"','26"','23"']},
+    {id:'vibrafono', label:'Vibráfono', icon:ICONS.barras, w:104, h:84},
+    {id:'xilofono', label:'Xilófono', icon:ICONS.barras, w:104, h:84},
+    {id:'campanas', label:'Campanas tubulares', icon:ICONS.campanas, w:114, h:84}
   ];
 
   var stage = document.getElementById('stage');
-  var x = 40;
+  var stageWrap = document.querySelector('.stage-wrap');
   var placed = [];
+  var userMoved = false;
 
   items.forEach(function(def){
-    var tall = def.h > 120;
-    var y = tall ? ROW_Y_TALL : ROW_Y_SINGLE;
-
     var el = document.createElement('div');
     el.className = 'item' + (def.tray ? ' tray' : '');
     el.style.width = def.w + 'px';
+    el.dataset.w = def.w;
+    el.dataset.h = def.h;
     el.tabIndex = 0;
 
     var html = '';
-    if(def.tray) html += '<span class="tray-tag">Bandeja</span>';
-    html += def.icon;
+    html += def.icon || '';
     html += '<span class="label">' + def.label + '</span>';
     if(def.sub){
       html += '<span class="sub-list">' + def.sub.map(function(s){
-        return '<span>' + s.text + '</span>';
+        return '<span class="sub-item">' + s.icon + '<span>' + s.text + '</span></span>';
       }).join('') + '</span>';
     }
     if(def.sizes){
@@ -358,25 +367,62 @@
     }
     el.innerHTML = html;
 
-    el.style.left = x + 'px';
-    el.style.top = y + 'px';
-    el.dataset.x0 = x;
-    el.dataset.y0 = y;
-
     stage.appendChild(el);
     placed.push(el);
-
-    x += def.w + GAP;
   });
 
-  stage.style.width = (x + 20) + 'px';
+  function clamp(val, min, max){ return Math.max(min, Math.min(max, val)); }
+
+  // Shelf-packing: flows items left-to-right in the specified order, wrapping
+  // to a new row when the available width runs out (so it fits any screen
+  // width without horizontal scrolling), then reused as each item's home
+  // position for the reset button.
+  function layoutItems(){
+    var availW = stage.clientWidth || stageWrap.clientWidth;
+    var rowX = MARGIN_X, rowY = MARGIN_TOP, rowMaxH = 0;
+
+    placed.forEach(function(el, i){
+      var w = parseFloat(el.dataset.w), h = parseFloat(el.dataset.h);
+      if(rowX > MARGIN_X && rowX + w > availW - MARGIN_X){
+        rowY += rowMaxH + V_GAP;
+        rowX = MARGIN_X;
+        rowMaxH = 0;
+      }
+      el.style.left = rowX + 'px';
+      el.style.top = rowY + 'px';
+      el.dataset.x0 = rowX;
+      el.dataset.y0 = rowY;
+      rowX += w + H_GAP;
+      rowMaxH = Math.max(rowMaxH, h);
+    });
+
+    stage.style.height = (rowY + rowMaxH + MARGIN_BOTTOM) + 'px';
+  }
+
+  function clampAllToStage(){
+    var stageW = stage.clientWidth, stageH = stage.clientHeight;
+    placed.forEach(function(el){
+      var w = el.offsetWidth, h = el.offsetHeight;
+      el.style.left = clamp(el.offsetLeft, 0, Math.max(0, stageW - w)) + 'px';
+      el.style.top = clamp(el.offsetTop, 0, Math.max(0, stageH - h)) + 'px';
+    });
+  }
+
+  layoutItems();
+
+  var resizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){
+      if(userMoved) clampAllToStage();
+      else layoutItems();
+    }, 120);
+  });
 
   // Drag behaviour
   var stageRect, dragEl, offX, offY;
 
   function bounds(){ stageRect = stage.getBoundingClientRect(); }
-
-  function clamp(val, min, max){ return Math.max(min, Math.min(max, val)); }
 
   placed.forEach(function(el){
     el.addEventListener('pointerdown', function(e){
@@ -391,8 +437,9 @@
 
     el.addEventListener('pointermove', function(e){
       if(dragEl !== el) return;
-      var nx = clamp(e.clientX - stageRect.left - offX, 0, stage.offsetWidth - el.offsetWidth);
-      var ny = clamp(e.clientY - stageRect.top - offY, 0, stage.offsetHeight - el.offsetHeight);
+      userMoved = true;
+      var nx = clamp(e.clientX - stageRect.left - offX, 0, stage.clientWidth - el.offsetWidth);
+      var ny = clamp(e.clientY - stageRect.top - offY, 0, stage.clientHeight - el.offsetHeight);
       el.style.left = nx + 'px';
       el.style.top = ny + 'px';
     });
@@ -417,17 +464,16 @@
       else moved = false;
       if(moved){
         e.preventDefault();
-        el.style.left = clamp(cur.left, 0, stage.offsetWidth - el.offsetWidth) + 'px';
-        el.style.top = clamp(cur.top, 0, stage.offsetHeight - el.offsetHeight) + 'px';
+        userMoved = true;
+        el.style.left = clamp(cur.left, 0, stage.clientWidth - el.offsetWidth) + 'px';
+        el.style.top = clamp(cur.top, 0, stage.clientHeight - el.offsetHeight) + 'px';
       }
     });
   });
 
   document.getElementById('resetBtn').addEventListener('click', function(){
-    placed.forEach(function(el){
-      el.style.left = el.dataset.x0 + 'px';
-      el.style.top = el.dataset.y0 + 'px';
-    });
+    userMoved = false;
+    layoutItems();
   });
 })();
 </script>
