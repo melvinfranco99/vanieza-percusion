@@ -1,4 +1,4 @@
-<title>Plano de escenario — Percusión</title>
+<title>Plano de Escenario - Percusión</title>
 <style>
   :root{
     --bg-page:#F7F8FA;
@@ -15,6 +15,7 @@
     --border-tray:#B5751F;
     --shadow:0 1px 2px rgba(20,51,92,.12);
     --shadow-drag:0 10px 24px rgba(20,51,92,.28);
+    --danger:#B23A3A;
   }
   @media (prefers-color-scheme: dark){
     :root{
@@ -32,19 +33,20 @@
       --border-tray:#C98A3E;
       --shadow:0 1px 2px rgba(0,0,0,.35);
       --shadow-drag:0 14px 30px rgba(0,0,0,.5);
+      --danger:#E27171;
     }
   }
   :root[data-theme="dark"]{
     --bg-page:#0E1B30; --bg-stage:#12274A; --grid-line:#23406B; --grid-line-major:#2E4F80;
     --ink:#DCE8FA; --ink-dim:#8FAAD1; --accent:#E4A24E; --accent-ink:#FFD9A0;
     --box-fill:#1C3560; --box-fill-tray:#3A2C18; --border:#6E93C4; --border-tray:#C98A3E;
-    --shadow:0 1px 2px rgba(0,0,0,.35); --shadow-drag:0 14px 30px rgba(0,0,0,.5);
+    --shadow:0 1px 2px rgba(0,0,0,.35); --shadow-drag:0 14px 30px rgba(0,0,0,.5); --danger:#E27171;
   }
   :root[data-theme="light"]{
     --bg-page:#F7F8FA; --bg-stage:#FFFFFF; --grid-line:#C7D6EA; --grid-line-major:#A9C0E0;
     --ink:#14335C; --ink-dim:#4C6D95; --accent:#C97A2B; --accent-ink:#7A4712;
     --box-fill:#EEF3FA; --box-fill-tray:#FBEEDD; --border:#2B4C78; --border-tray:#B5751F;
-    --shadow:0 1px 2px rgba(20,51,92,.12); --shadow-drag:0 10px 24px rgba(20,51,92,.28);
+    --shadow:0 1px 2px rgba(20,51,92,.12); --shadow-drag:0 10px 24px rgba(20,51,92,.28); --danger:#B23A3A;
   }
 
   *{box-sizing:border-box;}
@@ -59,78 +61,64 @@
   .app{
     display:flex;
     flex-direction:column;
-    min-height:100vh;
-    gap:14px;
-    padding:16px clamp(10px,3vw,28px) 24px;
+    height:100vh;
+    gap:10px;
+    padding:14px clamp(10px,3vw,24px) 14px;
   }
 
-  .titleblock{
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:16px;
-    flex-wrap:wrap;
-    border-bottom:2px solid var(--border);
-    padding-bottom:12px;
-  }
-  .titleblock h1{
+  h1{
     margin:0;
-    font-size:clamp(17px,2.4vw,25px);
+    font-size:clamp(16px,2.2vw,23px);
     font-weight:700;
     letter-spacing:.05em;
     text-transform:uppercase;
     text-wrap:balance;
+    border-bottom:2px solid var(--border);
+    padding-bottom:10px;
   }
-  .titleblock .sub{
-    margin:4px 0 0;
-    color:var(--ink-dim);
-    font-size:12.5px;
-    max-width:62ch;
-    line-height:1.5;
-  }
-  .titleblock .meta{
+
+  .toolbar{
     display:flex;
-    gap:10px;
+    gap:8px;
+    flex-wrap:wrap;
     align-items:center;
+  }
+  .toolbar .divider{
+    width:1px;
+    align-self:stretch;
+    background:var(--grid-line-major);
+    margin:0 2px;
   }
   .btn{
     appearance:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
     border:1.5px solid var(--border);
     background:var(--bg-stage);
     color:var(--ink);
     font:inherit;
     font-weight:600;
-    font-size:12px;
-    letter-spacing:.05em;
+    font-size:11.5px;
+    letter-spacing:.03em;
     text-transform:uppercase;
-    padding:8px 13px;
+    padding:7px 11px;
     border-radius:5px;
     cursor:pointer;
   }
+  .btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7;flex:none;}
   .btn:hover{border-color:var(--accent);color:var(--accent-ink);}
   .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .btn.danger:hover{border-color:var(--danger);color:var(--danger);}
 
-  .legend{
-    display:flex;
-    gap:18px;
-    flex-wrap:wrap;
-    font-size:11.5px;
-    color:var(--ink-dim);
-    align-items:center;
-  }
-  .legend .swatch{
-    display:inline-flex;align-items:center;gap:6px;
-  }
-  .legend .box-sample{
-    width:18px;height:13px;border-radius:3px;
-    background:var(--box-fill);border:1.5px solid var(--border);
-  }
-  .legend .box-sample.tray{
-    background:var(--box-fill-tray);border:1.5px dashed var(--border-tray);
+  input[type="color"]{
+    width:32px;height:32px;padding:2px;border-radius:6px;
+    border:1.5px solid var(--border);background:var(--bg-stage);cursor:pointer;
   }
 
   .stage-wrap{
     flex:1;
+    min-height:0;
     overflow-y:auto;
     overflow-x:hidden;
     border-radius:10px;
@@ -138,9 +126,14 @@
     background:var(--bg-stage);
   }
 
-  .stage{
+  .stage-scale{
     position:relative;
     width:100%;
+  }
+
+  .stage{
+    position:absolute;
+    top:0;left:0;
     background-image:
       linear-gradient(var(--grid-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
@@ -148,13 +141,14 @@
       linear-gradient(90deg, var(--grid-line-major) 1px, transparent 1px);
     background-size:16px 16px,16px 16px,80px 80px,80px 80px;
     background-position:-1px -1px;
+    transform-origin:top left;
   }
 
   .edge-label{
     position:absolute;
     left:0;right:0;
     text-align:center;
-    font-size:10.5px;
+    font-size:12px;
     font-weight:700;
     letter-spacing:.2em;
     text-transform:uppercase;
@@ -194,25 +188,12 @@
     border:1.5px dashed var(--border-tray);
   }
   .item:active{cursor:grabbing;}
-  .item.dragging{
-    box-shadow:var(--shadow-drag);
-    z-index:50;
-  }
-  .item:focus-visible{
-    outline:2px solid var(--accent);
-    outline-offset:2px;
-  }
+  .item.dragging{box-shadow:var(--shadow-drag);z-index:50;}
+  .item.selected{outline:2px solid var(--accent);outline-offset:2px;}
+  .item:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
 
-  .item .icon{
-    width:26px;height:23px;
-    stroke:var(--ink);
-    fill:none;
-    stroke-width:1.6;
-    flex:none;
-  }
-  .item.tray > .label{
-    color:var(--accent-ink);
-  }
+  .item .icon{width:26px;height:23px;stroke:var(--ink);fill:none;stroke-width:1.6;flex:none;}
+  .item.tray > .label{color:var(--accent-ink);}
 
   .item .label{
     font-size:9.5px;
@@ -221,41 +202,32 @@
     text-transform:uppercase;
     line-height:1.15;
   }
-  .item .sub-list{
-    display:flex;
-    flex-direction:row;
-    gap:5px;
-    margin-top:1px;
+  .item .label[contenteditable="true"]{outline:1px dashed var(--accent);border-radius:2px;}
+
+  .item .sub-list{display:flex;flex-direction:row;gap:5px;margin-top:1px;flex-wrap:wrap;justify-content:center;}
+  .item .sub-item{display:flex;flex-direction:column;align-items:center;gap:1px;width:44px;}
+  .item .sub-item .icon{width:17px;height:15px;stroke:var(--accent-ink);stroke-width:1.5;}
+  .item .sub-item span{font-size:7.5px;color:var(--ink-dim);font-weight:600;line-height:1.1;}
+
+  .item .sizes{display:flex;gap:5px;margin-top:1px;font-family:ui-monospace,'Cascadia Mono','SF Mono',Consolas,monospace;font-variant-numeric:tabular-nums;}
+  .item .sizes span{font-size:9px;color:var(--ink-dim);font-weight:600;}
+
+  .item.shape{padding:0;background:transparent;}
+  .item.shape.square{background:var(--shape-fill,rgba(43,76,120,.12));border-color:var(--shape-color,var(--border));border-width:2px;}
+  .item.shape.circle{background:var(--shape-fill,rgba(43,76,120,.12));border-color:var(--shape-color,var(--border));border-width:2px;border-radius:50%;}
+  .item.shape.text{
+    border:1.5px dashed transparent;background:transparent;box-shadow:none;
+    color:var(--shape-color,var(--ink));font-weight:700;font-size:14px;
+    padding:4px 8px;min-width:40px;min-height:24px;justify-content:center;
   }
-  .item .sub-item{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:1px;
-    width:44px;
-  }
-  .item .sub-item .icon{
-    width:17px;height:15px;
-    stroke:var(--accent-ink);
-    stroke-width:1.5;
-  }
-  .item .sub-item span{
-    font-size:7.5px;
-    color:var(--ink-dim);
-    font-weight:600;
-    line-height:1.1;
-  }
-  .item .sizes{
-    display:flex;
-    gap:5px;
-    margin-top:1px;
-    font-family:ui-monospace,'Cascadia Mono','SF Mono',Consolas,monospace;
-    font-variant-numeric:tabular-nums;
-  }
-  .item .sizes span{
-    font-size:9px;
-    color:var(--ink-dim);
-    font-weight:600;
+  .item.shape.text:hover{border-color:var(--grid-line-major);}
+  .item.shape.text[contenteditable="true"]{border-color:var(--accent);cursor:text;}
+
+  .resize-handle{
+    position:absolute;right:-5px;bottom:-5px;
+    width:12px;height:12px;border-radius:3px;
+    background:var(--accent);border:1.5px solid var(--bg-stage);
+    cursor:nwse-resize;touch-action:none;
   }
 
   @media (prefers-reduced-motion: no-preference){
@@ -264,40 +236,59 @@
 </style>
 
 <div class="app">
-  <div class="titleblock">
-    <div>
-      <h1>Plano de escenario — Percusión</h1>
-      <p class="sub">Vista cenital (desde arriba). Orden de partida de izquierda a derecha, tal como se especificó. Arrastra cada pieza para reorganizarla; las bandejas de línea discontinua agrupan instrumentos que toca un mismo percusionista y se mueven como una sola unidad.</p>
-    </div>
-    <div class="meta">
-      <button class="btn" id="resetBtn" type="button">Restaurar orden inicial</button>
-    </div>
+  <h1>Plano de Escenario - Percusión</h1>
+
+  <div class="toolbar">
+    <button class="btn" id="addInstrumentBtn" type="button" title="Añadir un instrumento independiente">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+      Instrumento
+    </button>
+    <button class="btn" id="addTrayBtn" type="button" title="Añadir una bandeja con varios instrumentos">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="3 2.5"/><path d="M12 8v8M8 12h8"/></svg>
+      Bandeja
+    </button>
+    <span class="divider"></span>
+    <button class="btn" id="addSquareBtn" type="button" title="Insertar un cuadrado">
+      <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/></svg>
+      Cuadrado
+    </button>
+    <button class="btn" id="addCircleBtn" type="button" title="Insertar un círculo">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>
+      Círculo
+    </button>
+    <button class="btn" id="addTextBtn" type="button" title="Insertar un texto">
+      <svg viewBox="0 0 24 24"><path d="M5 5h14M12 5v14"/></svg>
+      Texto
+    </button>
+    <input type="color" id="colorPicker" value="#2B4C78" title="Color de las nuevas formas y textos">
+    <span class="divider"></span>
+    <button class="btn danger" id="deleteBtn" type="button" title="Eliminar el elemento seleccionado (o pulsa Supr)">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>
+      Eliminar
+    </button>
+    <button class="btn" id="resetBtn" type="button" title="Volver al plano inicial (se perderán los cambios)">
+      <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 1 2.6 5.9M4 12V6M4 12h6"/></svg>
+      Reiniciar
+    </button>
   </div>
 
-  <div class="legend">
-    <span class="swatch"><span class="box-sample"></span>Instrumento individual</span>
-    <span class="swatch"><span class="box-sample tray"></span>Bandeja compartida (varios instrumentos, un percusionista)</span>
-    <span class="swatch">Arrastra con el ratón/dedo · con el elemento enfocado, usa las flechas del teclado (Mayús = paso grande)</span>
-  </div>
-
-  <div class="stage-wrap">
-    <div class="stage" id="stage">
-      <div class="edge-label audience">
-        <svg width="13" height="13" viewBox="0 0 14 14"><path d="M7 13 L7 3 M2.5 7 L7 2 L11.5 7" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Público
+  <div class="stage-wrap" id="stageWrap">
+    <div class="stage-scale" id="stageScale">
+      <div class="stage" id="stage">
+        <div class="edge-label audience">
+          <svg width="13" height="13" viewBox="0 0 14 14"><path d="M7 13 L7 3 M2.5 7 L7 2 L11.5 7" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Público
+        </div>
+        <div class="edge-label backstage">Fondo de escenario</div>
       </div>
-      <div class="edge-label backstage">Fondo de escenario</div>
     </div>
   </div>
 </div>
 
 <script>
 (function(){
-  var MARGIN_X = 18;
-  var MARGIN_TOP = 40;
-  var MARGIN_BOTTOM = 34;
-  var H_GAP = 12;
-  var V_GAP = 14;
+  var VIRTUAL_W = 1370;
+  var VIRTUAL_H = 420;
 
   function icon(paths, viewBox){
     return '<svg class="icon" viewBox="' + (viewBox||'0 0 40 36') + '">' + paths + '</svg>';
@@ -316,41 +307,156 @@
     pandereta: icon('<circle cx="20" cy="18" r="12"/><circle cx="20" cy="4" r="2"/><circle cx="32" cy="12" r="2"/><circle cx="32" cy="24" r="2"/><circle cx="20" cy="32" r="2"/><circle cx="8" cy="24" r="2"/><circle cx="8" cy="12" r="2"/>'),
     timbales: icon('<circle cx="6" cy="24" r="5.5"/><circle cx="17" cy="22" r="4.6"/><circle cx="27" cy="22" r="3.8"/><circle cx="35.5" cy="23" r="3.1"/>', '0 0 42 32'),
     barras: icon('<rect x="6" y="18" width="4" height="14"/><rect x="12" y="12" width="4" height="20"/><rect x="18" y="7" width="4" height="25"/><rect x="24" y="12" width="4" height="20"/><rect x="30" y="18" width="4" height="14"/>'),
-    campanas: icon('<line x1="6" y1="4" x2="34" y2="4"/><line x1="8" y1="4" x2="8" y2="14"/><line x1="14" y1="4" x2="14" y2="24"/><line x1="20" y1="4" x2="20" y2="32"/><line x1="26" y1="4" x2="26" y2="24"/><line x1="32" y1="4" x2="32" y2="14"/>')
+    campanas: icon('<line x1="6" y1="4" x2="34" y2="4"/><line x1="8" y1="4" x2="8" y2="14"/><line x1="14" y1="4" x2="14" y2="24"/><line x1="20" y1="4" x2="20" y2="32"/><line x1="26" y1="4" x2="26" y2="24"/><line x1="32" y1="4" x2="32" y2="14"/>'),
+    baquetas: icon('<circle cx="9" cy="8" r="3.4"/><line x1="11.3" y1="10.3" x2="27" y2="26"/><circle cx="31" cy="8" r="3.4"/><line x1="28.7" y1="10.3" x2="13" y2="26"/>'),
+    generic: icon('<circle cx="18" cy="25" r="6"/><line x1="24" y1="25" x2="24" y2="7"/><line x1="24" y1="7" x2="33" y2="9"/>'),
+    dot: icon('<circle cx="19" cy="19" r="9"/>', '0 0 38 38')
   };
 
-  var items = [
-    {id:'bombo', label:'Bombo', icon:ICONS.bombo, w:96, h:84},
-    {id:'plato1', label:'Plato suspendido', icon:ICONS.plato, w:96, h:84},
-    {id:'tray1', label:'Primera bandeja', tray:true, w:158, h:104,
+  var BUILTIN = [
+    {id:'bombo', label:'Bombo', icon:ICONS.bombo, w:96, h:84, x:20, y:155},
+    {id:'plato1', label:'Plato suspendido', icon:ICONS.plato, w:96, h:84, x:130, y:155},
+    {id:'tray1', label:'Primera bandeja', tray:true, w:158, h:104, x:180, y:44,
       sub:[{icon:ICONS.palo_lluvia, text:'Palo de lluvia'},
            {icon:ICONS.sonaja, text:'Sonaja'},
            {icon:ICONS.pajaro, text:'Pájaro'}]},
-    {id:'cortinas', label:'Cortinas', icon:ICONS.cortinas, w:96, h:84},
-    {id:'caja', label:'Caja', icon:ICONS.caja, w:96, h:84},
-    {id:'gong', label:'Gong', icon:ICONS.gong, w:100, h:84},
-    {id:'plato2', label:'2º plato suspendido', icon:ICONS.plato, w:100, h:84},
-    {id:'tray2', label:'Segunda bandeja', tray:true, w:110, h:104,
+    {id:'cortinas', label:'Cortinas', icon:ICONS.cortinas, w:96, h:84, x:240, y:202},
+    {id:'caja', label:'Caja', icon:ICONS.caja, w:96, h:84, x:350, y:155},
+    {id:'gong', label:'Gong', icon:ICONS.gong, w:100, h:84, x:460, y:202},
+    {id:'tray2', label:'Segunda bandeja', tray:true, w:110, h:104, x:520, y:44,
       sub:[{icon:ICONS.maracas, text:'Maracas'},
            {icon:ICONS.pandereta, text:'Pandereta'}]},
-    {id:'timbales', label:'4 timbales', icon:ICONS.timbales, w:150, h:104, sizes:['32"','29"','26"','23"']},
-    {id:'vibrafono', label:'Vibráfono', icon:ICONS.barras, w:104, h:84},
-    {id:'xilofono', label:'Xilófono', icon:ICONS.barras, w:104, h:84},
-    {id:'campanas', label:'Campanas tubulares', icon:ICONS.campanas, w:114, h:84}
+    {id:'plato2', label:'2º plato suspendido', icon:ICONS.plato, w:100, h:84, x:574, y:155},
+    {id:'timbales', label:'4 timbales', icon:ICONS.timbales, w:150, h:104, x:688, y:155, sizes:['32"','29"','26"','23"']},
+    {id:'baquetas', label:'Baquetas timbales', tray:true, w:110, h:104, x:852, y:155,
+      sub:[{icon:ICONS.baquetas, text:'Baquetas'}]},
+    {id:'vibrafono', label:'Vibráfono', icon:ICONS.barras, w:104, h:84, x:976, y:155},
+    {id:'xilofono', label:'Xilófono', icon:ICONS.barras, w:104, h:84, x:1094, y:155},
+    {id:'campanas', label:'Campanas tubulares', icon:ICONS.campanas, w:114, h:84, x:1212, y:155}
   ];
 
   var stage = document.getElementById('stage');
-  var stageWrap = document.querySelector('.stage-wrap');
-  var placed = [];
-  var userMoved = false;
+  var stageScale = document.getElementById('stageScale');
+  var stageWrap = document.getElementById('stageWrap');
+  var colorPicker = document.getElementById('colorPicker');
 
-  items.forEach(function(def){
+  stage.style.width = VIRTUAL_W + 'px';
+  stage.style.height = VIRTUAL_H + 'px';
+
+  var selected = null;
+  var addCount = 0;
+
+  function clamp(val, min, max){ return Math.max(min, Math.min(max, val)); }
+
+  function select(el){
+    if(selected) selected.classList.remove('selected');
+    selected = el;
+    if(selected) selected.classList.add('selected');
+  }
+
+  function enableInlineEdit(target){
+    target.addEventListener('dblclick', function(e){
+      e.stopPropagation();
+      target.setAttribute('contenteditable', 'true');
+      target.focus();
+      var range = document.createRange();
+      range.selectNodeContents(target);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    });
+    target.addEventListener('blur', function(){
+      target.removeAttribute('contenteditable');
+    });
+    target.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); target.blur(); }
+      e.stopPropagation();
+    });
+  }
+
+  function scaleFactor(){
+    return Math.min(1, stageWrap.clientWidth / VIRTUAL_W);
+  }
+
+  function updateScale(){
+    var f = scaleFactor();
+    stage.style.transform = 'scale(' + f + ')';
+    stageScale.style.height = (VIRTUAL_H * f) + 'px';
+  }
+
+  function makeInteractive(el, w, h){
+    el.dataset.w = w;
+    el.dataset.h = h;
+    el.tabIndex = 0;
+
+    var stageRect, offVX, offVY, dragging = false;
+
+    el.addEventListener('pointerdown', function(e){
+      if(e.target.closest('.resize-handle')) return;
+      if(el.getAttribute('contenteditable') === 'true') return;
+      select(el);
+      dragging = true;
+      stageRect = stage.getBoundingClientRect();
+      var f = scaleFactor();
+      var r = el.getBoundingClientRect();
+      offVX = (e.clientX - r.left) / f;
+      offVY = (e.clientY - r.top) / f;
+      el.classList.add('dragging');
+      el.setPointerCapture(e.pointerId);
+    });
+
+    el.addEventListener('pointermove', function(e){
+      if(!dragging) return;
+      var f = scaleFactor();
+      var w2 = parseFloat(el.dataset.w), h2 = parseFloat(el.dataset.h);
+      var nx = ((e.clientX - stageRect.left) / f) - offVX;
+      var ny = ((e.clientY - stageRect.top) / f) - offVY;
+      nx = clamp(nx, 0, VIRTUAL_W - w2);
+      ny = clamp(ny, 0, VIRTUAL_H - h2);
+      el.style.left = nx + 'px';
+      el.style.top = ny + 'px';
+    });
+
+    function release(e){
+      if(!dragging) return;
+      dragging = false;
+      el.classList.remove('dragging');
+      try{ el.releasePointerCapture(e.pointerId); }catch(err){}
+    }
+    el.addEventListener('pointerup', release);
+    el.addEventListener('pointercancel', release);
+
+    el.addEventListener('keydown', function(e){
+      if(el.getAttribute('contenteditable') === 'true') return;
+      var step = e.shiftKey ? 20 : 5;
+      var cur = { left: el.offsetLeft / scaleFactor(), top: el.offsetTop / scaleFactor() };
+      var moved = true;
+      if(e.key === 'ArrowLeft') cur.left -= step;
+      else if(e.key === 'ArrowRight') cur.left += step;
+      else if(e.key === 'ArrowUp') cur.top -= step;
+      else if(e.key === 'ArrowDown') cur.top += step;
+      else moved = false;
+      if(moved){
+        e.preventDefault();
+        var w2 = parseFloat(el.dataset.w), h2 = parseFloat(el.dataset.h);
+        el.style.left = clamp(cur.left, 0, VIRTUAL_W - w2) + 'px';
+        el.style.top = clamp(cur.top, 0, VIRTUAL_H - h2) + 'px';
+      }
+    });
+  }
+
+  function nextSpot(){
+    var col = addCount % 8, row = Math.floor(addCount / 8);
+    addCount++;
+    return { x: clamp(30 + col * 130, 0, VIRTUAL_W - 100), y: clamp(VIRTUAL_H - 150 + row * 40, 0, VIRTUAL_H - 90) };
+  }
+
+  function buildInstrumentEl(def){
     var el = document.createElement('div');
     el.className = 'item' + (def.tray ? ' tray' : '');
     el.style.width = def.w + 'px';
-    el.dataset.w = def.w;
-    el.dataset.h = def.h;
-    el.tabIndex = 0;
+    el.style.left = def.x + 'px';
+    el.style.top = def.y + 'px';
 
     var html = '';
     html += def.icon || '';
@@ -368,112 +474,131 @@
     el.innerHTML = html;
 
     stage.appendChild(el);
-    placed.push(el);
-  });
-
-  function clamp(val, min, max){ return Math.max(min, Math.min(max, val)); }
-
-  // Shelf-packing: flows items left-to-right in the specified order, wrapping
-  // to a new row when the available width runs out (so it fits any screen
-  // width without horizontal scrolling), then reused as each item's home
-  // position for the reset button.
-  function layoutItems(){
-    var availW = stage.clientWidth || stageWrap.clientWidth;
-    var rowX = MARGIN_X, rowY = MARGIN_TOP, rowMaxH = 0;
-
-    placed.forEach(function(el, i){
-      var w = parseFloat(el.dataset.w), h = parseFloat(el.dataset.h);
-      if(rowX > MARGIN_X && rowX + w > availW - MARGIN_X){
-        rowY += rowMaxH + V_GAP;
-        rowX = MARGIN_X;
-        rowMaxH = 0;
-      }
-      el.style.left = rowX + 'px';
-      el.style.top = rowY + 'px';
-      el.dataset.x0 = rowX;
-      el.dataset.y0 = rowY;
-      rowX += w + H_GAP;
-      rowMaxH = Math.max(rowMaxH, h);
-    });
-
-    stage.style.height = (rowY + rowMaxH + MARGIN_BOTTOM) + 'px';
+    makeInteractive(el, def.w, def.h);
+    enableInlineEdit(el.querySelector('.label'));
+    return el;
   }
 
-  function clampAllToStage(){
-    var stageW = stage.clientWidth, stageH = stage.clientHeight;
-    placed.forEach(function(el){
-      var w = el.offsetWidth, h = el.offsetHeight;
-      el.style.left = clamp(el.offsetLeft, 0, Math.max(0, stageW - w)) + 'px';
-      el.style.top = clamp(el.offsetTop, 0, Math.max(0, stageH - h)) + 'px';
+  BUILTIN.forEach(buildInstrumentEl);
+
+  function addResizeHandle(el, isCircle){
+    var handle = document.createElement('div');
+    handle.className = 'resize-handle';
+    el.appendChild(handle);
+    handle.addEventListener('pointerdown', function(e){
+      e.stopPropagation();
+      select(el);
+      handle.setPointerCapture(e.pointerId);
+      var startX = e.clientX, startY = e.clientY;
+      var startW = parseFloat(el.dataset.w), startH = parseFloat(el.dataset.h);
+
+      function move(ev){
+        var f = scaleFactor();
+        var dw = (ev.clientX - startX) / f;
+        var dh = (ev.clientY - startY) / f;
+        var nw = clamp(startW + dw, 30, VIRTUAL_W);
+        var nh = isCircle ? nw : clamp(startH + dh, 30, VIRTUAL_H);
+        el.style.width = nw + 'px';
+        el.style.height = nh + 'px';
+        el.dataset.w = nw;
+        el.dataset.h = nh;
+      }
+      function up(ev){
+        try{ handle.releasePointerCapture(ev.pointerId); }catch(err){}
+        handle.removeEventListener('pointermove', move);
+        handle.removeEventListener('pointerup', up);
+      }
+      handle.addEventListener('pointermove', move);
+      handle.addEventListener('pointerup', up);
     });
   }
 
-  layoutItems();
+  function addShape(kind){
+    var spot = nextSpot();
+    var size = 90;
+    var el = document.createElement('div');
+    el.className = 'item shape ' + kind;
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.style.left = spot.x + 'px';
+    el.style.top = spot.y + 'px';
+    el.style.setProperty('--shape-color', colorPicker.value);
+    stage.appendChild(el);
+    makeInteractive(el, size, size);
+    addResizeHandle(el, kind === 'circle');
+    select(el);
+  }
 
-  var resizeTimer;
-  window.addEventListener('resize', function(){
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function(){
-      if(userMoved) clampAllToStage();
-      else layoutItems();
-    }, 120);
-  });
+  function addText(){
+    var spot = nextSpot();
+    var el = document.createElement('div');
+    el.className = 'item shape text';
+    el.style.left = spot.x + 'px';
+    el.style.top = spot.y + 'px';
+    el.style.color = colorPicker.value;
+    el.textContent = 'Texto';
+    stage.appendChild(el);
+    makeInteractive(el, 70, 26);
+    enableInlineEdit(el);
+    select(el);
+    setTimeout(function(){
+      el.setAttribute('contenteditable', 'true');
+      el.focus();
+      document.execCommand('selectAll', false, null);
+    }, 0);
+  }
 
-  // Drag behaviour
-  var stageRect, dragEl, offX, offY;
+  function addInstrument(){
+    var name = window.prompt('Nombre del instrumento:', '');
+    if(!name) return;
+    var spot = nextSpot();
+    buildInstrumentEl({label:name, icon:ICONS.generic, w:96, h:84, x:spot.x, y:spot.y});
+  }
 
-  function bounds(){ stageRect = stage.getBoundingClientRect(); }
+  function addTray(){
+    var name = window.prompt('Nombre de la bandeja:', 'Nueva bandeja');
+    if(!name) return;
+    var raw = window.prompt('Instrumentos de la bandeja, separados por comas:', '');
+    var names = (raw || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+    var sub = names.map(function(n){ return {icon: ICONS.dot, text: n}; });
+    var w = Math.max(110, sub.length * 50 + 20);
+    var spot = nextSpot();
+    buildInstrumentEl({label:name, tray:true, w:w, h:104, x:spot.x, y:spot.y, sub: sub.length ? sub : null});
+  }
 
-  placed.forEach(function(el){
-    el.addEventListener('pointerdown', function(e){
-      bounds();
-      dragEl = el;
-      el.classList.add('dragging');
-      el.setPointerCapture(e.pointerId);
-      var r = el.getBoundingClientRect();
-      offX = e.clientX - r.left;
-      offY = e.clientY - r.top;
-    });
+  document.getElementById('addInstrumentBtn').addEventListener('click', addInstrument);
+  document.getElementById('addTrayBtn').addEventListener('click', addTray);
+  document.getElementById('addSquareBtn').addEventListener('click', function(){ addShape('square'); });
+  document.getElementById('addCircleBtn').addEventListener('click', function(){ addShape('circle'); });
+  document.getElementById('addTextBtn').addEventListener('click', addText);
 
-    el.addEventListener('pointermove', function(e){
-      if(dragEl !== el) return;
-      userMoved = true;
-      var nx = clamp(e.clientX - stageRect.left - offX, 0, stage.clientWidth - el.offsetWidth);
-      var ny = clamp(e.clientY - stageRect.top - offY, 0, stage.clientHeight - el.offsetHeight);
-      el.style.left = nx + 'px';
-      el.style.top = ny + 'px';
-    });
-
-    function release(e){
-      if(dragEl !== el) return;
-      el.classList.remove('dragging');
-      try{ el.releasePointerCapture(e.pointerId); }catch(err){}
-      dragEl = null;
-    }
-    el.addEventListener('pointerup', release);
-    el.addEventListener('pointercancel', release);
-
-    el.addEventListener('keydown', function(e){
-      var step = e.shiftKey ? 20 : 5;
-      var cur = { left: el.offsetLeft, top: el.offsetTop };
-      var moved = true;
-      if(e.key === 'ArrowLeft') cur.left -= step;
-      else if(e.key === 'ArrowRight') cur.left += step;
-      else if(e.key === 'ArrowUp') cur.top -= step;
-      else if(e.key === 'ArrowDown') cur.top += step;
-      else moved = false;
-      if(moved){
-        e.preventDefault();
-        userMoved = true;
-        el.style.left = clamp(cur.left, 0, stage.clientWidth - el.offsetWidth) + 'px';
-        el.style.top = clamp(cur.top, 0, stage.clientHeight - el.offsetHeight) + 'px';
-      }
-    });
+  document.getElementById('deleteBtn').addEventListener('click', function(){
+    if(selected){ selected.remove(); selected = null; }
   });
 
   document.getElementById('resetBtn').addEventListener('click', function(){
-    userMoved = false;
-    layoutItems();
+    window.location.reload();
+  });
+
+  stage.addEventListener('pointerdown', function(e){
+    if(e.target === stage) select(null);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(document.activeElement && document.activeElement.getAttribute && document.activeElement.getAttribute('contenteditable') === 'true') return;
+    if((e.key === 'Delete' || e.key === 'Backspace') && selected){
+      e.preventDefault();
+      selected.remove();
+      selected = null;
+    }
+    if(e.key === 'Escape') select(null);
+  });
+
+  updateScale();
+  var resizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(updateScale, 100);
   });
 })();
 </script>
